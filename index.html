@@ -30,30 +30,24 @@
 
 <script>
 window.onload = () => {
-  const paths = document.querySelectorAll('.mask');
-
-  console.log("paths found:", paths.length);
+  const strokes = document.querySelectorAll('.mask-stroke');
 
   let delay = 0;
 
-  paths.forEach((path, i) => {
+  strokes.forEach((path) => {
     const length = path.getTotalLength();
 
     path.style.strokeDasharray = length;
     path.style.strokeDashoffset = length;
 
-    const duration = length / 300; // faster
+    const duration = length / 250;
 
     path.style.animation = `draw ${duration}s ease forwards`;
     path.style.animationDelay = `${delay}s`;
 
-    delay += duration * 0.4;
+    // 🔑 no overlap → real handwriting feel
+    delay += duration + 0.05;
   });
-  
-  const totalTime = delay;
-
-  document.querySelector('.final').style.animation =
-    `revealFill 0.5s ease forwards ${totalTime}s`;
 };
 </script>
 
